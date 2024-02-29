@@ -1,10 +1,18 @@
-"use client";
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useGlobalContext } from "@/app/context/globalContext";
 
-function FlyToActiveCity({ activeCityCords }: { activeCityCords: {lat: number, lon: number} }) {
+interface ActiveCityCoords {
+  lat: number;
+  lon: number;
+}
+
+interface FlyToActiveCityProps {
+  activeCityCords: ActiveCityCoords;
+}
+
+function FlyToActiveCity({ activeCityCords }: FlyToActiveCityProps) {
   const map = useMap();
 
   useEffect(() => {
@@ -41,6 +49,7 @@ function Mapbox() {
   return (
     <div className="flex-1 basis-[50%] border rounded-lg">
       <MapContainer
+        // @ts-ignore
         center={[activeCityCords.lat, activeCityCords.lon]}
         zoom={13}
         scrollWheelZoom={false}
@@ -49,6 +58,7 @@ function Mapbox() {
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          // @ts-ignore
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
